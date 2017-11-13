@@ -86,20 +86,6 @@
                 scene.add(mesh2);
             });
 
-        
-      
-       
-
-      
-
-    //let geometry = new THREE.BoxGeometry(10,10,10,10);new THREE.SphereGeometry(20,100,100)
-
-   // let groundMaterial = new THREE.MeshPhongMaterial({
-       // color: 0xffffff
-    //});
-
-    //let mesh = new THREE.Mesh(geometry, groundMaterial);
-
     let pointLight = new THREE.PointLight(0x606060);
 
     pointLight.position.y = -5;

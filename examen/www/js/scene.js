@@ -17,18 +17,25 @@
     camera.position.z = 60;
     camera.position.y = 15;
 
-    let planeGeometry = new THREE.PlaneGeometry(200,900);
+    let planeGeometry = new THREE.PlaneGeometry( 150, 100, 150, 100 ); //200,900
     planeGeometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
     let groundMaterial = new THREE.MeshPhongMaterial({
         color: 0xffffff
     });
     let plane = new THREE.Mesh(planeGeometry, groundMaterial);
     plane.receiveShadow  = true;
+    plane.position.z=-15;
+    plane.position.y=15;
+    plane.rotateZ(0);
+    plane.rotateX(1.6);
+    plane.rotateY(0)
     let mesh;
+    let mesh1;
+    let mesh2;
 
     let loader = new THREE.TextureLoader();
 
-    loader.load('public/map1.jpg', function(texture){
+    loader.load('public/color-azul.jpg', function(texture){
         let geometry = new THREE.BoxGeometry(10,10,10,10);
         let material = new THREE.MeshBasicMaterial({
             map: texture
@@ -37,10 +44,53 @@
         mesh = new THREE.Mesh(geometry, material);
 
         mesh.position.y = 25;
+        mesh.position.x=-25
 
         mesh.castShadow = true;
         scene.add(mesh);
-    })
+    });
+
+    let loader1 = new THREE.TextureLoader();
+    
+        loader1.load('public/color-rojo.png', function(texture1){
+            let geometry1 = new THREE.TorusGeometry(10,4,8,200);
+            let material1 = new THREE.MeshBasicMaterial({
+                map: texture1
+            })
+    
+            mesh1 = new THREE.Mesh(geometry1, material1);
+    
+            mesh1.position.y = 25;
+            mesh1.position.x=0
+    
+            mesh1.castShadow = true;
+            scene.add(mesh1);
+        });
+
+        let loader2 = new THREE.TextureLoader();
+        
+            loader2.load('public/color-violeta.png', function(texture2){
+                let geometry2 = new THREE.CylinderGeometry(0, 10, 15, 4, 1, true);
+                let material2 = new THREE.MeshBasicMaterial({
+                    map: texture2,
+                    vertexColors:THREE.VertexColors,
+                    side:THREE.DoubleSide
+                })
+        
+                mesh2 = new THREE.Mesh(geometry2, material2);
+        
+                mesh2.position.y = 25;
+                mesh2.position.x=30
+        
+                mesh2.castShadow = true;
+                scene.add(mesh2);
+            });
+
+        
+      
+       
+
+      
 
     //let geometry = new THREE.BoxGeometry(10,10,10,10);new THREE.SphereGeometry(20,100,100)
 
@@ -52,8 +102,8 @@
 
     let pointLight = new THREE.PointLight(0x606060);
 
-    pointLight.position.y = 60;
-    pointLight.position.z = 20;
+    pointLight.position.y = -5;
+    pointLight.position.z = 150;
 
     pointLight.castShadow = true;
 
@@ -62,12 +112,14 @@
     scene.add(plane);
     scene.add(pointLight);
 
-    let controls = new THREE.OrbitControls(camera, renderer.domElement);
+    
 
 
     function loop(){
         requestAnimationFrame(loop);
-        mesh.rotation.x += 0.01;
+        mesh.rotation.y += 0.01;
+        mesh1.rotation.x += 0.01;
+        mesh2.rotation.z +=0.01;
         renderer.render(scene, camera);
     }
 
